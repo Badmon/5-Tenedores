@@ -1,8 +1,11 @@
-import React from "react";
+import React, {useState} from "react";
 import { StyleSheet, View, Text } from "react-native"
 import { Input, Icon, Button } from "react-native-elements";
 
 export default function RegisterForm() {
+    const [showPassword, setShowPassword] = useState(false);
+    const [showRepeatPassword, setShowRepeatPassword] = useState();
+
     return(
         <View style={styles.formContainer}>
             <Input
@@ -19,12 +22,13 @@ export default function RegisterForm() {
             placeholder="Contrasena"
             containerStyle={styles.inputForm}
             password={true}
-            secureTextEntry={true}
+            secureTextEntry={showPassword ? false : true}
             rightIcon={
                 <Icon
                 type="material-community"
-                name="eye-outline"
+                name={showPassword ? "eye-off-outline" : "eye-outline" }
                 iconStyle={styles.iconRight}
+                onPress={() => setShowPassword(!showPassword)}
                 />
             }
             />
@@ -32,12 +36,13 @@ export default function RegisterForm() {
             placeholder="Repetir contrasena"
             containerStyle={styles.inputForm}
             password={true}
-            secureTextEntry={true}
+            secureTextEntry={showRepeatPassword ? false : true}
             rightIcon={
                 <Icon
                 type="material-community"
-                name="eye-outline"
-                iconStyle={styles.iconRight} />
+                name={showPassword ? "eye-off-outline" : "eye-outline" }
+                iconStyle={styles.iconRight}
+                onPress={() => setShowRepeatPassword(!showRepeatPassword)} />
             }
             />
             <Button 
