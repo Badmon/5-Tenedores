@@ -2,6 +2,7 @@ import React, {useState} from "react";
 import { StyleSheet, View, Text } from "react-native"
 import { Input, Icon, Button } from "react-native-elements";
 import { validateEmail } from "../../utils/validations";
+import { size, isEmpty } from "lodash";
 
 export default function RegisterForm() {
     const [showPassword, setShowPassword] = useState(false);
@@ -9,14 +10,27 @@ export default function RegisterForm() {
     const [formData, setformData] = useState(defaultFormValue());
 
     const onSubmit = () => {
-        console.log(formData);
+        if(
+            isEmpty(formData.email) || 
+            isEmpty(formData.password) || 
+            isEmpty(formData.repeatPassword)
+            ){
+                console.log("Todos los campos son obligastiors");
+            }else if(!validateEmail(formData.email)){
+                console.log("El Email no es correcto");
+            
+            } else if(formData.password !== formData.repeatPassword){
+                console.log("Las contrasenas tienen que ser iguales")
 
-        console.log(validateEmail(formData.email));
+            } else if(size(formData.password) > 6){
+                console.log("La contrasena tiene que tener al menos 6 caracteres")
+            }
+            else {
+                console.log("OK");
+            }
     };
 
     const onChange =(e, type) =>{
-        // console.log(e.nativeEvent.text);
-        // setformData({[type]: e.nativeEvent.text})
         setformData({ ...formData, [type]: e.nativeEvent.text })
     }
 
@@ -76,7 +90,6 @@ function defaultFormValue(){
         email: "",
         password: "",
         repeatPassword: "",
-
     };
 }
 
@@ -104,6 +117,5 @@ const styles= StyleSheet.create({
 
     iconRight:{
         color: "#c1c1c1",
-
     },
 });
