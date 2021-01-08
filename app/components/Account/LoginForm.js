@@ -8,12 +8,26 @@ export default function LoginForm() {
       <Input
         placeholder="Correo electronico"
         containerStyle={styles.inputForm}
+        rightIcon={
+          <Icon
+            type="material-community"
+            name="at"
+            iconStyle={styles.iconRight}
+          />
+        }
       />
       <Input
         placeholder="Contrasena"
         containerStyle={styles.inputForm}
         password={true}
         secureTextEntry={true}
+        rightIcon={
+          <Icon
+            type="material-community"
+            name="eye-outline"
+            iconStyle={styles.iconRight}
+          />
+        }
       />
       <Button
         title="Iniciar Sesion"
@@ -44,5 +58,9 @@ const styles = StyleSheet.create({
 
   btnLogin: {
     backgroundColor: "#00a680",
+  },
+
+  iconRight: {
+    color: "#c1c1c1",
   },
 });
